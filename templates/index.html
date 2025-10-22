@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AI Resume Analyzer</title>
+  <style>
+    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; margin: 2rem auto; max-width: 860px; line-height: 1.45; }
+    header { margin-bottom: 1rem; }
+    .card { border: 1px solid #e6e6e6; border-radius: 10px; padding: 1rem 1.2rem; margin-bottom: 1rem; }
+    .row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    label { font-weight: 600; display:block; margin-bottom: 0.4rem; }
+    input[type=file], textarea { width: 100%; }
+    textarea { min-height: 170px; }
+    .btn { padding: 0.7rem 1.1rem; border: 1px solid #111; background: #111; color: #fff; border-radius: 8px; cursor: pointer; }
+    .btn:hover { opacity: 0.9; }
+    .flash { padding: 0.6rem 0.8rem; border-radius: 8px; margin-bottom: 0.6rem; }
+    .error { background: #ffe9e9; border: 1px solid #ffc2c2; }
+    .tip { background: #f5faff; border: 1px solid #cfe8ff; }
+    footer { margin-top: 2rem; color: #555; font-size: 0.95rem; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>AI Resume Analyzer</h1>
+    <p>Upload your resume and paste (or upload) a Job Description to see your match score and improvement tips.</p>
+  </header>
+
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      {% for category, message in messages %}
+        <div class="flash {{ category }}">{{ message }}</div>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+
+  <form action="{{ url_for('analyze') }}" method="post" enctype="multipart/form-data">
+    <div class="card">
+      <h3>1) Upload Resume</h3>
+      <p><small>Accepted: PDF, DOCX, TXT</small></p>
+      <input type="file" name="resume_file" required />
+    </div>
+
+    <div class="card">
+      <h3>2) Job Description</h3>
+      <div class="row">
+        <div>
+          <label for="jd_text">Paste JD text</label>
+          <textarea name="jd_text" id="jd_text" placeholder="Paste the job description here..."></textarea>
+        </div>
+        <div>
+          <label for="jd_file">Or upload a JD file</label>
+          <input type="file" name="jd_file" />
+          <p><small>Accepted: PDF, DOCX, TXT</small></p>
+        </div>
+      </div>
+    </div>
+
+    <button class="btn" type="submit">Analyze</button>
+  </form>
+
+  <footer>
+    <p><strong>Note:</strong> This is a starter app using TF-IDF similarity. For production, consider advanced NLP (spaCy, embeddings).</p>
+  </footer>
+</body>
+</html>
