@@ -1,3 +1,4 @@
+
 # AI Resume Analyzer (Flask + NLP)
 
 A lightweight web app that:
@@ -40,3 +41,7 @@ Open http://127.0.0.1:5000 in your browser.
 - Keep your resume as text-rich PDF (not just a scanned image).
 - For better results, provide a full JD.
 - This is a starter—you can plug in spaCy, BERT, or embeddings later.
+=======
+# ai-resume-analyzer
+AI Resume Analyzer — A Flask-based web app that compares your resume with a job description using NLP and shows match score, missing keywords, and suggestions.
+>>>>>>> b8f40cecbeb578c3130e93bd5d01e6af1b1e1e97
